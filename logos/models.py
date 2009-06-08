@@ -3,12 +3,13 @@ from datetime import datetime
 from django.db import models
 from django.contrib.sites.models import Site
 from django.contrib.sites.managers import CurrentSiteManager
+from django.utils.translation import ugettext_lazy as _
 
 class Logo(models.Model):
-    image = models.ImageField(upload_to='logos')
-    is_active = models.BooleanField(default=True)
-    upload_date = models.DateTimeField(default=datetime.now, editable=False)
-    site = models.ManyToManyField(Site, editable=False)
+    image = models.ImageField(_('image'), upload_to='logos')
+    is_active = models.BooleanField(_('is active'), default=True)
+    upload_date = models.DateTimeField(_('upload date'), default=datetime.now, editable=False)
+    site = models.ManyToManyField(Site, verbose_name=_('site'), editable=False)
 
     objects = models.Manager()
     on_site = CurrentSiteManager()
