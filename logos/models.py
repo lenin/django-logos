@@ -5,8 +5,10 @@ from django.contrib.sites.models import Site
 from django.contrib.sites.managers import CurrentSiteManager
 from django.utils.translation import ugettext_lazy as _
 
+from logos.settings import LOGO_UPLOAD_TO
+
 class Logo(models.Model):
-    image = models.ImageField(_('image'), upload_to='logos')
+    image = models.ImageField(_('image'), upload_to=LOGO_UPLOAD_TO)
     is_active = models.BooleanField(_('is active'), default=True)
     upload_date = models.DateTimeField(_('upload date'), default=datetime.now, editable=False)
     site = models.ManyToManyField(Site, verbose_name=_('site'), editable=False)
@@ -16,7 +18,7 @@ class Logo(models.Model):
 
     class Meta:
         get_latest_by = 'upload_date'
-        ordering = ('is_active', '-upload_date')
+        ordering = ('-is_active',)
 
     def save(self, force_insert=False, force_update=False):
         created = not self.id
