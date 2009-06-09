@@ -20,6 +20,9 @@ class Logo(models.Model):
         get_latest_by = 'upload_date'
         ordering = ('-is_active',)
 
+    def __unicode__(self):
+        return self.image.name[:30]
+
     def save(self, force_insert=False, force_update=False):
         created = not self.id
         super(Logo, self).save(force_insert, force_update)
