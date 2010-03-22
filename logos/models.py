@@ -8,7 +8,8 @@ from django.utils.translation import ugettext_lazy as _
 from logos.settings import LOGO_UPLOAD_TO
 
 class Logo(models.Model):
-    image = models.ImageField(_('image'), upload_to=LOGO_UPLOAD_TO)
+    title = models.CharField(_('title'), max_length=255)
+    image = models.ImageField(_('image'), upload_to=LOGO_UPLOAD_TO, blank=True)
     is_active = models.BooleanField(_('is active'), default=True)
     upload_date = models.DateTimeField(_('upload date'), default=datetime.now, editable=False)
     site = models.ManyToManyField(Site, verbose_name=_('site'), editable=False)
